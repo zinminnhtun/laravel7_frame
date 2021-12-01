@@ -23,8 +23,9 @@
             <x-menu-spacer></x-menu-spacer>
 
             <x-menu-title title="Article Manager"></x-menu-title>
-            <x-menu-item name="Manage Category" link="{{ route('category.index') }}" class="feather-layers" ></x-menu-item>
+            <x-menu-item name="Manage Category" link="{{ route('category.index') }}" class="feather-layers" counter="{{ $categories->count() }}"></x-menu-item>
             <x-menu-item name="Create Article" link="{{ route('article.create') }}" class="feather-plus-circle" ></x-menu-item>
+            <x-menu-item name="Article List" link="{{ route('article.index') }}" class="feather-list" counter="{{ \App\Article::all()->count() }}"></x-menu-item>
 
             <x-menu-spacer></x-menu-spacer>
 

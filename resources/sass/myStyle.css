@@ -40,7 +40,7 @@
     color: white !important;
 }
 
-.menu-item-link.active span{
+.menu-item-link.active > :first-child{
     color: white !important;
 }
 

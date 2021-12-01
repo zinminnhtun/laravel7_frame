@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->text('title');
             $table->longText('description');
             $table->bigInteger('user_id');
+            $table->bigInteger('category_id');
             $table->timestamps();
         });
     }

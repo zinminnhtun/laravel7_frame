@@ -19,7 +19,7 @@
                         @csrf
                         <div class="mb-2">
                             <input type="text" name="title" value="{{ old('title') }}" class="form-control form-control-lg w-25 d-inline-block mr-2 @error('title') is-invalid @enderror"
-                                   placeholder="New Category" required>
+                                   placeholder="New Category" required autofocus>
                             <button type="submit" class="btn btn-primary btn-lg">Add</button>
                             @error('title')
                             <span class="invalid-feedback" role="alert">

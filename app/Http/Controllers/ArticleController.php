@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Rules\SelectCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -15,7 +16,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return "hello";
+        $articles = Article::with('user','category')->orderByDesc('id')->paginate(6);
+        return view('article.index',['articles'=>$articles]);
     }
 
     /**
@@ -40,9 +42,16 @@ class ArticleController extends Controller
             "category"=>["required",new SelectCategory()],
             "title"=>"required|min:3",
             "description"=>"required|min:10",
-
         ]);
-        return $request;
+
+        $article = new Article();
+        $article->title = $request->title;
+        $article->description = $request->description;
+        $article->category_id = $request->category;
+        $article->user_id = Auth::id();
+        $article->save();
+        return redirect()->route('article.index')->with('status','<p class="alert alert-success"><b>'.$request->title.'</b> created.</p>');
+
     }
 
     /**
