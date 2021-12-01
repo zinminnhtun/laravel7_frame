@@ -1,9 +1,5 @@
-@if(session('addTitle'))
-    <p class="alert alert-success">{!! session('addTitle') !!}</p>
-@elseif(session('updateTitle'))
-    <p class="alert alert-success"> {!! session('updateTitle') !!}</p>
-@elseif(session('deleteTitle'))
-    <p class="alert alert-danger"> {!! session('deleteTitle') !!}</p>
+@if(session('status'))
+    {!! session('status') !!}
 @endif
 <table class="table table-bordered">
     <thead>
@@ -27,15 +23,15 @@
             </td>
             <td>
                                     <span class="d-flex justify-content-around align-items-center">
-                                        <a href="{{ route('category.edit',$category->id) }}"><i
-                                                class="fas fa-edit fa-fw"></i>
+                                        <a href="{{ route('category.edit',$category->id) }}" class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-edit fa-fw"></i>
                                         </a>
-                                        <span class="" onclick="event.preventDefault();document.getElementById('delete-category').submit();">
-                                            <i class="fas fa-trash-alt fa-fw text-danger"></i>
-                                        </span>
+                                        <div class="btn btn-outline-danger btn-sm" onclick="if (confirm('Are you sure to delete {{ '"'.$category->title.'"' }}?')){event.preventDefault();document.getElementById('delete-category{{$category->id}}').submit()};">
+                                            <i class="fas fa-trash-alt fa-fw"></i>
+                                        </div>
 
                                     </span>
-                <form action="{{ route('category.destroy',$category->id) }}" id="delete-category" method="post">
+                <form action="{{ route('category.destroy',$category->id) }}" id="delete-category{{$category->id}}" method="post">
                     @csrf
                     @method('delete')
                 </form>

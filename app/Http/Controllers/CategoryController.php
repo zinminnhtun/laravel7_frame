@@ -43,7 +43,7 @@ class CategoryController extends Controller
         $category->title = $request->title;;
         $category->user_id = Auth::id();
         $category->save();
-        return redirect()->route('category.index')->with('addTitle',"<b>$request->title</b> is added.");
+        return redirect()->route('category.index')->with("status",'<p class="alert alert-success"><b>'.$request->title.'</b> added.</p>');
     }
 
     /**
@@ -82,7 +82,7 @@ class CategoryController extends Controller
         ]);
         $category->title = $request->title;
         $category->save();
-        return redirect()->route('category.index')->with('updateTitle',"<b>$request->title</b> is updated.");
+        return redirect()->route('category.index')->with('status','<p class="alert alert-success"><b>'.$request->title.'</b> updated.</p>');
     }
 
     /**
@@ -95,6 +95,6 @@ class CategoryController extends Controller
     {
         $title = $category->title;
         $category->delete();
-        return redirect()->back()->with('deleteTitle',"<b>$title</b> is deleted.");
+        return redirect()->back()->with('status','<p class="alert alert-danger"><b>'.$title.'</b> deleted.</p>');
     }
 }
