@@ -18,7 +18,13 @@
                     <button class="test btn btn-primary">test</button>
 
                         <br>
+
                     {{ Request::url() }}
+                     {{ (\App\Category::all()->pluck('id')) }}
+
+
+{{--  {{ dd(in_array(4,[1,2,3])) }}--}}
+{{--                    {{ Hash::check("asdffds",auth()->user()->password) ? 'yes':"no" }}--}}
 
                 </div>
             </div>

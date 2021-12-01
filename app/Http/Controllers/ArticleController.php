@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Rules\SelectCategory;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -35,7 +36,13 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "category"=>["required",new SelectCategory()],
+            "title"=>"required|min:3",
+            "description"=>"required|min:10",
+
+        ]);
+        return $request;
     }
 
     /**
