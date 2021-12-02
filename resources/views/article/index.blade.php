@@ -60,7 +60,7 @@
                                 <td>
                                     <span class="font-weight-bold">{{ Str::words($article->title,5) }}</span>
                                     <br>
-                                    <small class="text-black-50">{{ Str::words($article->description,8) }}</small>
+                                    <small class="text-black-50">{{ Str::words($article->description,5) }}</small>
                                 </td>
                                 <td>{{ $article->category->title }}</td>
                                 <td>
@@ -70,15 +70,18 @@
                                 </td>
                                 <td>
                                     <span class="d-flex justify-content-around align-items-center">
-                                        <a href="{{ route('category.edit',$article->id) }}" class="btn btn-outline-primary btn-sm">
+                                         <a href="{{ route('article.show',$article->id) }}" class="btn btn-outline-success btn-sm">
+                                            <i class="fas fa-info-circle fa-fw"></i>
+                                        </a>
+                                        <a href="{{ route('article.edit',$article->id) }}" class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-edit fa-fw"></i>
                                         </a>
-                                        <div class="btn btn-outline-danger btn-sm" onclick="if (confirm('Are you sure to delete {{ '"'.$article->title.'"' }}?')){event.preventDefault();document.getElementById('delete-category{{$article->id}}').submit()};">
+                                        <div class="btn btn-outline-danger btn-sm" onclick="if (confirm('Are you sure to delete this article?')){event.preventDefault();document.getElementById('delete-article{{$article->id}}').submit()};">
                                             <i class="fas fa-trash-alt fa-fw"></i>
                                         </div>
 
                                     </span>
-                                    <form action="{{ route('category.destroy',$article->id) }}" id="delete-category{{$article->id}}" method="post">
+                                    <form action="{{ route('article.destroy',$article->id) }}" id="delete-article{{$article->id}}" method="post">
                                         @csrf
                                         @method('delete')
                                     </form>

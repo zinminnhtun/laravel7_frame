@@ -46,7 +46,7 @@ class ArticleController extends Controller
         $request->validate([
 //            "category"=>["required",new SelectCategory()], //with rules building
             "category" => "required|exists:categories,id",
-            "title" => "required|min:3|max:200",
+            "title" => "required|min:3|max:200|unique:articles,title",
             "description" => "required|min:5",
         ]);
 
@@ -68,7 +68,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view('article.show',["article"=>$article]);
     }
 
     /**
@@ -79,7 +79,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('article.edit',['article'=>$article]);
     }
 
     /**
@@ -91,7 +91,20 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $request->validate([
+//            "category"=>["required",new SelectCategory()], //with rules building
+            "category" => "required|exists:categories,id",
+            "title" => "required|min:3|max:200|unique:articles,title,".$article->id,
+            "description" => "required|min:5",
+        ]);
+
+        $article->title = $request->title;
+        $article->description = $request->description;
+        $article->category_id = $request->category;
+//        $article->user_id = Auth::id();
+        $article->update();
+        return redirect()->route('article.show',$article->id)->with('status', '<p class="alert alert-success"><b>' . $request->title . '</b> updated.</p>');
+
     }
 
     /**
@@ -102,6 +115,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $title = $article->title;
+        $article->delete();
+        return redirect()->back()->with('status', '<p class="alert alert-success"><b>' . $title . '</b> deleted.</p>');
     }
 }

@@ -26,9 +26,9 @@
                                         <a href="{{ route('category.edit',$category->id) }}" class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-edit fa-fw"></i>
                                         </a>
-                                        <div class="btn btn-outline-danger btn-sm" onclick="if (confirm('Are you sure to delete {{ '"'.$category->title.'"' }}?')){event.preventDefault();document.getElementById('delete-category{{$category->id}}').submit()};">
-                                            <i class="fas fa-trash-alt fa-fw"></i>
-                                        </div>
+{{--                                        <div class="btn btn-outline-danger btn-sm" onclick="if (confirm('Are you sure to delete {{ '"'.$category->title.'"' }}?')){event.preventDefault();document.getElementById('delete-category{{$category->id}}').submit()};">--}}
+{{--                                            <i class="fas fa-trash-alt fa-fw"></i>--}}
+{{--                                        </div>--}}
 
                                     </span>
                 <form action="{{ route('category.destroy',$category->id) }}" id="delete-category{{$category->id}}" method="post">
