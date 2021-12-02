@@ -115,8 +115,9 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+//        return request();
         $title = $article->title;
         $article->delete();
-        return redirect()->back()->with('status', '<p class="alert alert-success"><b>' . $title . '</b> deleted.</p>');
+        return redirect()->route('article.index',['page'=>request()->page])->with('status', '<p class="alert alert-success"><b>' . $title . '</b> deleted.</p>');
     }
 }

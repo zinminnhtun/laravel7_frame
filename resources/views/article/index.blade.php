@@ -70,7 +70,7 @@
                                 </td>
                                 <td>
                                     <span class="d-flex justify-content-around align-items-center">
-                                         <a href="{{ route('article.show',$article->id) }}" class="btn btn-outline-success btn-sm">
+                                         <a href="{{ route('article.show',[$article->id,'page'=>request()->page]) }}" class="btn btn-outline-success btn-sm">
                                             <i class="fas fa-info-circle fa-fw"></i>
                                         </a>
                                         <a href="{{ route('article.edit',$article->id) }}" class="btn btn-outline-primary btn-sm">
@@ -81,7 +81,7 @@
                                         </div>
 
                                     </span>
-                                    <form action="{{ route('article.destroy',$article->id) }}" id="delete-article{{$article->id}}" method="post">
+                                    <form action="{{ route('article.destroy',[$article->id,'page'=>request()->page]) }}" id="delete-article{{$article->id}}" method="post">
                                         @csrf
                                         @method('delete')
                                     </form>

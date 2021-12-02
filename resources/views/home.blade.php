@@ -19,12 +19,12 @@
 
                         <br>
 
-                    {{ Request::url() }}
+                        {{route('article.destroy',[1,'page'=>1])}}
+{{--                    {{ Request::url() }}--}}
                      {{ (\App\Category::all()->pluck('id')) }}
 
 
-{{--  {{ dd(in_array(4,[1,2,3])) }}--}}
-{{--                    {{ Hash::check("asdffds",auth()->user()->password) ? 'yes':"no" }}--}}
+
 
                 </div>
             </div>

@@ -45,10 +45,13 @@
                             <div class="btn btn-outline-danger btn-sm" onclick="if (confirm('Are you sure to delete this article?')){event.preventDefault();document.getElementById('delete-article{{$article->id}}').submit()};">
                                 <i class="fas fa-trash-alt fa-fw"></i>
                             </div>
+                            <a href="{{ route('article.index') }}" class="btn btn-outline-dark btn-sm">
+                                All Articles
+                            </a>
                         </div>
                         <p>{{ $article->created_at->diffForHumans() }}</p>
                     </div>
-                    <form action="{{ route('article.destroy',$article->id) }}" id="delete-article{{$article->id}}" method="post">
+                    <form action="{{ route('article.destroy',[$article->id,'page'=>request()->page]) }}" id="delete-article{{$article->id}}" method="post">
                         @csrf
                         @method('delete')
                     </form>
