@@ -39,7 +39,8 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "category"=>["required",new SelectCategory()],
+//            "category"=>["required",new SelectCategory()], //with rules building
+            "category"=>"required|exists:categories,id",
             "title"=>"required|min:3",
             "description"=>"required|min:10",
         ]);

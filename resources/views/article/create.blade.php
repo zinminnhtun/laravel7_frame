@@ -30,7 +30,7 @@
                         <select name="category" form="createArticle"
                                 class="custom-select custom-select-lg @error('category') is-invalid @enderror" id="">
                                 <option value="">Select Category</option>
-                                <option value="1">Select Category</option>
+                                <option value="25">Select Category1</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id}}" {{ old("category") == $category->id ? "selected" : '' }}>{{ $category->title }}</option>
                             @endforeach
