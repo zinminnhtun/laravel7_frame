@@ -101,7 +101,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-between">
-                        {{$articles->links() }}
+                        {{$articles->appends(request()->all())->links() }}
                         <p class="font-weight-bold mb-0">Total : {{ $articles->total() }}</p>
                     </div>
 
