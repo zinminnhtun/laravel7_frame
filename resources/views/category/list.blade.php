@@ -12,7 +12,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach(\App\Category::with('user')->orderByDesc('id')->get() as $category)
+    @forelse(\App\Category::with('user')->orderByDesc('id')->get() as $category)
         <tr>
             <td>{{ $category->id }}</td>
             <td>{{ $category->title }}</td>
@@ -43,6 +43,10 @@
                         class="fas fa-clock"></i> {{ $category->created_at->format("h:i a") }}</span>
             </td>
         </tr>
-    @endforeach
+    @empty
+        <tr>
+            <td colspan="5" class="text-center">There is no category</td>
+        </tr>
+    @endforelse
     </tbody>
 </table>

@@ -16,7 +16,29 @@
                         Article List
                     </h4>
                     <hr>
+                    <div class="d-flex justify-content-between">
+                        <div class="">
+                            <a href="{{ route('article.create') }}" class="btn btn-lg btn-outline-primary mr-3">
+                                <i class="feather-plus-circle"></i>Create Article
+                            </a>
+                            @isset(request()->search)
+                                <a href="{{ route('article.index') }}" class="btn btn-sm btn-outline-dark mr-3">
+                                    <i class="feather-list"></i>All Article
+                                </a>
+                                <span class="h5">Search by : "{{ request()->search }}"</span>
+                            @endisset
+                        </div>
+                        <form action="{{ route('article.index') }}" class="" method="get">
+                            <div class="form-inline mb-2">
+                                <input type="text" name="search" value="{{ request()->search }}" class="form-control form-control-lg mr-2"
+                                       placeholder="Search">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="feather-search"></i>
+                                </button>
+                            </div>
+                        </form>
 
+                    </div>
                     @if(session('status'))
                         {!! session('status') !!}
                     @endif
@@ -32,7 +54,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($articles as $article)
+                        @forelse($articles as $article)
                             <tr>
                                 <td>{{ $article->id }}</td>
                                 <td>
@@ -68,7 +90,11 @@
                                             class="fas fa-clock"></i> {{ $article->created_at->format("h:i a") }}</span>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">There is no articles</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-between">

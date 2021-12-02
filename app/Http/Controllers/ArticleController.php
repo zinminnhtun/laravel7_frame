@@ -16,8 +16,13 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('user','category')->orderByDesc('id')->paginate(6);
-        return view('article.index',['articles'=>$articles]);
+        $articles = Article::when(isset(request()->search), function ($q) {
+            $search = request()->search;
+            $q->where("title","like","%$search%")->orWhere("description","like","%$search%");
+        })
+            ->with('user', 'category')
+            ->orderByDesc('id')->paginate(6);
+        return view('article.index', ['articles' => $articles]);
     }
 
     /**
@@ -33,16 +38,16 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
 //            "category"=>["required",new SelectCategory()], //with rules building
-            "category"=>"required|exists:categories,id",
-            "title"=>"required|min:3",
-            "description"=>"required|min:10",
+            "category" => "required|exists:categories,id",
+            "title" => "required|min:3|max:200",
+            "description" => "required|min:5",
         ]);
 
         $article = new Article();
@@ -51,14 +56,14 @@ class ArticleController extends Controller
         $article->category_id = $request->category;
         $article->user_id = Auth::id();
         $article->save();
-        return redirect()->route('article.index')->with('status','<p class="alert alert-success"><b>'.$request->title.'</b> created.</p>');
+        return redirect()->route('article.index')->with('status', '<p class="alert alert-success"><b>' . $request->title . '</b> created.</p>');
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param \App\Article $article
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article)
@@ -69,7 +74,7 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param \App\Article $article
      * @return \Illuminate\Http\Response
      */
     public function edit(Article $article)
@@ -80,8 +85,8 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Article $article
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Article $article)
@@ -92,7 +97,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Article  $article
+     * @param \App\Article $article
      * @return \Illuminate\Http\Response
      */
     public function destroy(Article $article)
